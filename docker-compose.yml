@@ -1,0 +1,17 @@
+version: "3"
+services:
+  db:
+    image: postgres:16
+    restart: always
+    container_name: prisma
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=prisma
+  redis:
+    image: redis:alpine3.14
+    container_name: redis-prisma
+    ports:
+      - "6380:6380"
