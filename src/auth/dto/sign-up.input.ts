@@ -1,8 +1,11 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {Field, InputType} from '@nestjs/graphql';
+import {IsEmail, IsNotEmpty, IsString, Validate} from 'class-validator';
+import {IsUnique} from "../decorators/isUnique.validate-decorator";
+
 
 @InputType()
 export class SignUpInput {
+  @Validate(IsUnique, ['username'])
   @IsNotEmpty()
   @IsString()
   @Field()
@@ -11,6 +14,7 @@ export class SignUpInput {
   @IsNotEmpty()
   @IsString()
   @IsEmail()
+  @Validate(IsUnique, ['email'])
   @Field()
   email: string;
 

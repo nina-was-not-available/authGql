@@ -1,14 +1,15 @@
-import { Module } from '@nestjs/common';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
+import {Module} from '@nestjs/common';
+import {ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
+import {GraphQLModule} from '@nestjs/graphql';
+import {join} from 'path';
 import * as process from 'node:process';
-import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { PrismaService } from './prisma.service';
-import { APP_GUARD } from '@nestjs/core';
-import { AccessTokenGuard } from './auth/guards/accessToken.guard';
+import {ConfigModule} from '@nestjs/config';
+import {AuthModule} from './auth/auth.module';
+import {UserModule} from './user/user.module';
+import {PrismaService} from './prisma.service';
+import {APP_GUARD} from '@nestjs/core';
+import {AccessTokenGuard} from './auth/guards/accessToken.guard';
+import {IsUnique} from "./auth/decorators/isUnique.validate-decorator";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AccessTokenGuard } from './auth/guards/accessToken.guard';
   providers: [
     PrismaService,
     { provide: APP_GUARD, useClass: AccessTokenGuard },
+    IsUnique
   ],
 })
 export class AppModule {}
